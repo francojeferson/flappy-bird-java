@@ -17,7 +17,7 @@ flappy-bird-java/
 ├── src/
 │   └── Main.java          # Entry point (currently template code)
 ├── plans/
-│   └── plan.md            # Iterative game plan
+│   └── plan.md            # Iterative game plan (complete)
 ├── .idea/                  # IntelliJ configuration
 ├── .kilocode/              # Memory bank and rules
 ├── flappy-bird-java.iml   # IntelliJ module file
