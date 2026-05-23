@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   scrape-pbf-comic:
@@ -29,12 +28,14 @@ jobs:
       - name: Run PBF Comics scraper
         run: python scripts/scrape_pbfcomics.py
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v8
-        with:
-          title: "feat(comics): update PBF cartoon [$(date +%Y-%m-%d)]"
-          body: "Automated PR to update the latest PBF cartoon"
-          branch: daily-pbf-comics-updates
-          base: main
-          labels: automated
-          commit-message: "feat(comics): update PBF cartoon [$(date +%Y-%m-%d)]"
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add latest_pbf_cartoon.jpg
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "feat(comics): update PBF cartoon [$(date +%Y-%m-%d)]"
+            git push
+          fi
